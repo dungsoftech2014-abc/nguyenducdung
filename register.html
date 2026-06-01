@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dark: '#090A14',
+              surface: '#10121E',
+              border: '#272A3C',
+              focus: '#DF6B33',
+              muted: '#8D93A1'
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Poppins', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #090A14;
+      }
+      .font-heading {
+        font-family: 'Poppins', sans-serif;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-dark text-white">
+    <div class="flex min-h-screen items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
+      <div class="w-full max-w-4xl rounded-[32px] border border-border bg-surface/95 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl sm:p-10">
+        <div class="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div class="space-y-6">
+            <div class="max-w-xl">
+              <p class="text-sm uppercase tracking-[0.4em] text-muted">Get started</p>
+              <h1 class="mt-4 text-4xl font-heading font-extrabold leading-tight text-white sm:text-5xl">Create your account</h1>
+              <p class="mt-4 text-sm leading-7 text-muted sm:text-base">Join our community today and unlock access to all features. Registration takes just a few minutes.</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-3 sm:items-center">
+              <div class="rounded-3xl bg-[#0F111E] p-5 text-center shadow-lg shadow-black/20">
+                <p class="text-2xl font-heading font-bold text-white">Easy</p>
+                <p class="mt-2 text-sm text-muted">Simple registration process in minutes.</p>
+              </div>
+              <div class="rounded-3xl bg-[#0F111E] p-5 text-center shadow-lg shadow-black/20">
+                <p class="text-2xl font-heading font-bold text-white">Safe</p>
+                <p class="mt-2 text-sm text-muted">Your data is protected with encryption.</p>
+              </div>
+              <div class="rounded-3xl bg-[#0F111E] p-5 text-center shadow-lg shadow-black/20">
+                <p class="text-2xl font-heading font-bold text-white">Fast</p>
+                <p class="mt-2 text-sm text-muted">Get started instantly after registration.</p>
+              </div>
+            </div>
+          </div>
+          <div class="rounded-[28px] border border-border bg-[#0B0C17] p-7 sm:p-8 max-h-[85vh] overflow-y-auto">
+            <div class="mb-7 flex items-center justify-between">
+              <div>
+                <p class="text-sm uppercase tracking-[0.35em] text-muted">Register</p>
+                <h2 class="mt-2 text-2xl font-heading font-bold text-white">Create your profile</h2>
+              </div>
+              <div class="h-12 w-12 rounded-3xl bg-[#171A2A] flex items-center justify-center text-orange-500 flex-shrink-0">
+                <span class="text-xl">✨</span>
+              </div>
+            </div>
+            <form class="space-y-4" id="registerForm">
+              <label class="block text-sm font-medium text-muted">
+                Full Name <span class="text-focus">*</span>
+                <div class="mt-2 flex items-center gap-3 rounded-3xl border border-border bg-[#11141E] px-4 py-3 transition focus-within:border-focus">
+                  <i data-lucide="user" class="h-5 w-5 text-muted"></i>
+                  <input
+                    type="text"
+                    placeholder="John Doe"
+                    class="w-full bg-transparent text-white outline-none placeholder:text-muted"
+                    required
+                  />
+                </div>
+              </label>
+              <label class="block text-sm font-medium text-muted">
+                Email <span class="text-focus">*</span>
+                <div class="mt-2 flex items-center gap-3 rounded-3xl border border-border bg-[#11141E] px-4 py-3 transition focus-within:border-focus">
+                  <i data-lucide="mail" class="h-5 w-5 text-muted"></i>
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    class="w-full bg-transparent text-white outline-none placeholder:text-muted"
+                    required
+                  />
+                </div>
+              </label>
+              <label class="block text-sm font-medium text-muted">
+                Phone Number
+                <div class="mt-2 flex items-center gap-3 rounded-3xl border border-border bg-[#11141E] px-4 py-3 transition focus-within:border-focus">
+                  <i data-lucide="phone" class="h-5 w-5 text-muted"></i>
+                  <input
+                    type="tel"
+                    placeholder="1234567890"
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                    class="w-full bg-transparent text-white outline-none placeholder:text-muted"
+                  />
+                </div>
+              </label>
+              <label class="block text-sm font-medium text-muted">
+                Gender
+                <select class="w-full mt-2 rounded-3xl border border-border bg-[#11141E] px-4 py-3 text-white outline-none transition focus:border-focus">
+                  <option value="" selected>Select your gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                  <option value="prefer-not">Prefer not to say</option>
+                </select>
+              </label>
+              <label class="block text-sm font-medium text-muted">
+                Address
+                <div class="mt-2 flex items-center gap-3 rounded-3xl border border-border bg-[#11141E] px-4 py-3 transition focus-within:border-focus">
+                  <i data-lucide="map-pin" class="h-5 w-5 text-muted"></i>
+                  <input
+                    type="text"
+                    placeholder="123 Main Street, City"
+                    class="w-full bg-transparent text-white outline-none placeholder:text-muted"
+                  />
+                </div>
+              </label>
+              <label class="block text-sm font-medium text-muted">
+                Password <span class="text-focus">*</span>
+                <div class="mt-2 flex items-center gap-3 rounded-3xl border border-border bg-[#11141E] px-4 py-3 transition focus-within:border-focus">
+                  <i data-lucide="lock" class="h-5 w-5 text-muted"></i>
+                  <input
+                    type="password"
+                    placeholder="Enter your password"
+                    id="password"
+                    class="w-full bg-transparent text-white outline-none placeholder:text-muted"
+                    required
+                  />
+                </div>
+              </label>
+              <label class="block text-sm font-medium text-muted">
+                Confirm Password <span class="text-focus">*</span>
+                <div class="mt-2 flex items-center gap-3 rounded-3xl border border-border bg-[#11141E] px-4 py-3 transition focus-within:border-focus">
+                  <i data-lucide="check-circle" class="h-5 w-5 text-muted"></i>
+                  <input
+                    type="password"
+                    placeholder="Confirm your password"
+                    id="confirmPassword"
+                    class="w-full bg-transparent text-white outline-none placeholder:text-muted"
+                    required
+                  />
+                </div>
+                <p id="passwordError" class="mt-1 text-xs text-red-400 hidden">Passwords do not match</p>
+              </label>
+              <label class="inline-flex items-start gap-3 text-sm text-muted">
+                <input type="checkbox" id="termsCheckbox" class="h-4 w-4 rounded border-border bg-[#11141E] text-focus focus:ring-focus mt-1" required />
+                <span>I agree to the <a href="#" class="text-white hover:text-focus font-medium">Terms and Conditions</a> <span class="text-focus">*</span></span>
+              </label>
+              <button type="submit" class="w-full rounded-3xl bg-[#DF6B33] px-5 py-4 text-base font-semibold text-white transition hover:bg-[#c95c2c]">Create Account</button>
+            </form>
+            <div class="mt-5 border-t border-border pt-5 text-center text-sm text-muted">
+              Already have an account? <a href="login.html" class="font-medium text-white hover:text-focus">Back to sign in</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@^0.450.0/dist/lucide.min.js"></script>
+    <script>
+      lucide.replace()
+      
+      const form = document.getElementById('registerForm');
+      const password = document.getElementById('password');
+      const confirmPassword = document.getElementById('confirmPassword');
+      const passwordError = document.getElementById('passwordError');
+      
+      confirmPassword.addEventListener('input', function() {
+        if (password.value !== confirmPassword.value) {
+          passwordError.classList.remove('hidden');
+          confirmPassword.classList.add('border-red-500');
+        } else {
+          passwordError.classList.add('hidden');
+          confirmPassword.classList.remove('border-red-500');
+        }
+      });
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (password.value !== confirmPassword.value) {
+          passwordError.classList.remove('hidden');
+          return;
+        }
+        alert('Registration successful! Please sign in with your credentials.');
+        form.reset();
+      });
+    </script>
+  </body>
+</html>
