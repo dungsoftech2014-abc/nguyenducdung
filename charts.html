@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Analytics & Reports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dark: '#090A14',
+              surface: '#10121E',
+              border: '#272A3C',
+              focus: '#DF6B33',
+              muted: '#8D93A1'
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Poppins', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #090A14;
+      }
+      .font-heading {
+        font-family: 'Poppins', sans-serif;
+      }
+      canvas {
+        max-height: 400px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-dark text-white py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="mb-8">
+        <p class="text-sm uppercase tracking-[0.4em] text-muted">Dashboard</p>
+        <h1 class="mt-4 text-4xl sm:text-5xl font-heading font-extrabold leading-tight text-white">Analytics & Reports</h1>
+        <p class="mt-4 text-sm leading-7 text-muted sm:text-base">E-commerce sales revenue, business performance, and marketing metrics</p>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted">Total Revenue</p>
+              <p class="mt-2 text-3xl font-heading font-bold text-white">$125.4K</p>
+              <p class="mt-1 text-xs text-green-400">+12.5% from last month</p>
+            </div>
+            <div class="h-12 w-12 rounded-3xl bg-[#171A2A] flex items-center justify-center text-focus">
+              <i data-lucide="trending-up" class="h-6 w-6"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted">Total Orders</p>
+              <p class="mt-2 text-3xl font-heading font-bold text-white">1,243</p>
+              <p class="mt-1 text-xs text-green-400">+8.3% from last month</p>
+            </div>
+            <div class="h-12 w-12 rounded-3xl bg-[#171A2A] flex items-center justify-center text-focus">
+              <i data-lucide="shopping-cart" class="h-6 w-6"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted">Conversion Rate</p>
+              <p class="mt-2 text-3xl font-heading font-bold text-white">3.24%</p>
+              <p class="mt-1 text-xs text-blue-400">+0.45% from last month</p>
+            </div>
+            <div class="h-12 w-12 rounded-3xl bg-[#171A2A] flex items-center justify-center text-focus">
+              <i data-lucide="target" class="h-6 w-6"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm text-muted">Avg Order Value</p>
+              <p class="mt-2 text-3xl font-heading font-bold text-white">$100.81</p>
+              <p class="mt-1 text-xs text-green-400">+2.1% from last month</p>
+            </div>
+            <div class="h-12 w-12 rounded-3xl bg-[#171A2A] flex items-center justify-center text-focus">
+              <i data-lucide="dollar-sign" class="h-6 w-6"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Section -->
+      <div class="grid gap-8 lg:grid-cols-2 mb-8">
+        <!-- Revenue Chart -->
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="mb-6">
+            <p class="text-sm uppercase tracking-[0.35em] text-muted">Sales</p>
+            <h2 class="mt-2 text-2xl font-heading font-bold text-white">Monthly Revenue</h2>
+          </div>
+          <div class="relative h-80">
+            <canvas id="revenueChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Product Category Chart -->
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="mb-6">
+            <p class="text-sm uppercase tracking-[0.35em] text-muted">Products</p>
+            <h2 class="mt-2 text-2xl font-heading font-bold text-white">Sales by Category</h2>
+          </div>
+          <div class="relative h-80">
+            <canvas id="categoryChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Traffic Sources Chart -->
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="mb-6">
+            <p class="text-sm uppercase tracking-[0.35em] text-muted">Traffic</p>
+            <h2 class="mt-2 text-2xl font-heading font-bold text-white">Traffic Sources</h2>
+          </div>
+          <div class="relative h-80">
+            <canvas id="trafficChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Customer Acquisition Chart -->
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="mb-6">
+            <p class="text-sm uppercase tracking-[0.35em] text-muted">Marketing</p>
+            <h2 class="mt-2 text-2xl font-heading font-bold text-white">Customer Acquisition</h2>
+          </div>
+          <div class="relative h-80">
+            <canvas id="acquisitionChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tables Section -->
+      <div class="grid gap-8 lg:grid-cols-2">
+        <!-- Top Products Table -->
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="mb-6">
+            <p class="text-sm uppercase tracking-[0.35em] text-muted">Performance</p>
+            <h2 class="mt-2 text-2xl font-heading font-bold text-white">Top Products</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border">
+                  <th class="text-left py-3 px-3 text-muted font-medium">Product Name</th>
+                  <th class="text-right py-3 px-3 text-muted font-medium">Sales</th>
+                  <th class="text-right py-3 px-3 text-muted font-medium">Revenue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Premium Wireless Headphones</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">284</td>
+                  <td class="text-right py-3 px-3 text-green-400 font-semibold">$28,400</td>
+                </tr>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">USB-C Fast Charger</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">412</td>
+                  <td class="text-right py-3 px-3 text-green-400 font-semibold">$9,888</td>
+                </tr>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Mechanical Keyboard</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">198</td>
+                  <td class="text-right py-3 px-3 text-green-400 font-semibold">$11,880</td>
+                </tr>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">4K Webcam</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">156</td>
+                  <td class="text-right py-3 px-3 text-green-400 font-semibold">$9,360</td>
+                </tr>
+                <tr class="hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Portable SSD 1TB</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">193</td>
+                  <td class="text-right py-3 px-3 text-green-400 font-semibold">$18,528</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Marketing Campaigns Table -->
+        <div class="rounded-3xl bg-surface border border-border p-6 shadow-lg shadow-black/20">
+          <div class="mb-6">
+            <p class="text-sm uppercase tracking-[0.35em] text-muted">Marketing</p>
+            <h2 class="mt-2 text-2xl font-heading font-bold text-white">Campaign Performance</h2>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-border">
+                  <th class="text-left py-3 px-3 text-muted font-medium">Campaign</th>
+                  <th class="text-right py-3 px-3 text-muted font-medium">Clicks</th>
+                  <th class="text-right py-3 px-3 text-muted font-medium">CTR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Summer Sale 2026</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">15,240</td>
+                  <td class="text-right py-3 px-3 text-blue-400 font-semibold">4.2%</td>
+                </tr>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Black Friday Early</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">12,850</td>
+                  <td class="text-right py-3 px-3 text-blue-400 font-semibold">3.8%</td>
+                </tr>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Flash Deal Weekend</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">18,320</td>
+                  <td class="text-right py-3 px-3 text-blue-400 font-semibold">5.1%</td>
+                </tr>
+                <tr class="border-b border-border hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">New Collection Launch</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">9,650</td>
+                  <td class="text-right py-3 px-3 text-blue-400 font-semibold">2.9%</td>
+                </tr>
+                <tr class="hover:bg-[#11141E] transition">
+                  <td class="py-3 px-3">Loyalty Program Push</td>
+                  <td class="text-right py-3 px-3 text-white font-semibold">7,420</td>
+                  <td class="text-right py-3 px-3 text-blue-400 font-semibold">2.3%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@^0.450.0/dist/lucide.min.js"></script>
+    <script>
+      lucide.replace()
+
+      // Revenue Chart
+      const revenueCtx = document.getElementById('revenueChart').getContext('2d')
+      new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Revenue ($K)',
+            data: [78, 82, 85, 92, 98, 105, 112, 118, 125, 128, 135, 142],
+            borderColor: '#DF6B33',
+            backgroundColor: 'rgba(223, 107, 51, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#DF6B33',
+            pointBorderColor: '#090A14',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#FFFFFF',
+                font: {
+                  family: "'Inter', sans-serif",
+                  size: 12
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: '#8D93A1',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              },
+              grid: {
+                color: '#272A3C',
+                drawBorder: false
+              }
+            },
+            x: {
+              ticks: {
+                color: '#8D93A1',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              },
+              grid: {
+                display: false,
+                drawBorder: false
+              }
+            }
+          }
+        }
+      })
+
+      // Category Chart
+      const categoryCtx = document.getElementById('categoryChart').getContext('2d')
+      new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Electronics', 'Fashion', 'Home & Garden', 'Sports', 'Books'],
+          datasets: [{
+            data: [35, 25, 20, 12, 8],
+            backgroundColor: [
+              '#DF6B33',
+              '#FF8A50',
+              '#C95C2C',
+              '#FFA566',
+              '#B84C20'
+            ],
+            borderColor: '#090A14',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: '#FFFFFF',
+                font: {
+                  family: "'Inter', sans-serif",
+                  size: 12
+                },
+                padding: 15
+              }
+            }
+          }
+        }
+      })
+
+      // Traffic Chart
+      const trafficCtx = document.getElementById('trafficChart').getContext('2d')
+      new Chart(trafficCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Organic', 'Direct', 'Referral', 'Social', 'Email', 'Paid'],
+          datasets: [{
+            label: 'Visitors',
+            data: [42000, 28500, 18200, 15600, 9800, 7200],
+            backgroundColor: '#DF6B33',
+            borderColor: '#C95C2C',
+            borderWidth: 1,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#FFFFFF',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                color: '#8D93A1',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              },
+              grid: {
+                color: '#272A3C',
+                drawBorder: false
+              }
+            },
+            x: {
+              ticks: {
+                color: '#8D93A1',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              },
+              grid: {
+                display: false,
+                drawBorder: false
+              }
+            }
+          }
+        }
+      })
+
+      // Customer Acquisition Chart
+      const acquisitionCtx = document.getElementById('acquisitionChart').getContext('2d')
+      new Chart(acquisitionCtx, {
+        type: 'radar',
+        data: {
+          labels: ['Facebook Ads', 'Google Ads', 'Instagram', 'Email', 'Influencer', 'Affiliate'],
+          datasets: [{
+            label: 'Customer Acquisition Cost ($)',
+            data: [8.5, 12.3, 6.8, 3.2, 9.7, 5.4],
+            borderColor: '#DF6B33',
+            backgroundColor: 'rgba(223, 107, 51, 0.2)',
+            borderWidth: 2,
+            pointBackgroundColor: '#DF6B33',
+            pointBorderColor: '#090A14',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              labels: {
+                color: '#FFFFFF',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              }
+            }
+          },
+          scales: {
+            r: {
+              beginAtZero: true,
+              ticks: {
+                color: '#8D93A1',
+                font: {
+                  family: "'Inter', sans-serif"
+                }
+              },
+              grid: {
+                color: '#272A3C'
+              }
+            }
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
